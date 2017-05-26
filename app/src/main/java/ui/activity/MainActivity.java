@@ -1,4 +1,4 @@
-package com.example.andrey.giphygifs;
+package ui.activity;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -9,8 +9,14 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import adapter.DataAdapter;
+import ui.activity.giffy.GiffyApi;
+import com.example.andrey.giphygifs.R;
+
 import java.util.ArrayList;
 
+import jsonstructure.Gif;
+import jsonstructure.JsonResponse;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -18,7 +24,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MainActivity extends AppCompatActivity {
-    String query = "funny+cat";
+    String query = "";
     String apiKey = "dc6zaTOxFJmzC";
     RecyclerView gifsList;
     ArrayList<String> data;

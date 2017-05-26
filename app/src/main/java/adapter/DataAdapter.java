@@ -1,4 +1,4 @@
-package com.example.andrey.giphygifs;
+package adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -8,17 +8,19 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+import com.example.andrey.giphygifs.R;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Andrey on 24.05.2017.
  */
 
 public class DataAdapter extends RecyclerView.Adapter<DataAdapter.ViewHolder>{
-    ArrayList<String> gifsURLs;
+    private final List<String> gifsURLs;
     private ImageView gif;
-    Context mContext;
+    private Context mContext;
 
     public DataAdapter(ArrayList<String> gifsURLs) {
         this.gifsURLs = gifsURLs;
