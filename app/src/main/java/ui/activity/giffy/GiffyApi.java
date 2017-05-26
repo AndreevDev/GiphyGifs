@@ -1,5 +1,6 @@
-package com.example.andrey.giphygifs;
+package ui.activity.giffy;
 
+import jsonstructure.JsonResponse;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
