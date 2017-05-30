@@ -1,4 +1,4 @@
-package adapter;
+package ui.activity;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -21,7 +21,7 @@ public class DataAdapter extends RecyclerView.Adapter<DataAdapter.ViewHolder>{
     private final List<String> gifsURLs;
     private Context mContext;
 
-    public DataAdapter(ArrayList<String> gifsURLs) {
+    public DataAdapter(List<String> gifsURLs) {
         this.gifsURLs = gifsURLs;
     }
 
