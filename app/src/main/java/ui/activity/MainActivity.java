@@ -9,11 +9,13 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import adapter.DataAdapter;
 import ui.activity.giffy.GiffyApi;
+
+import com.example.andrey.giphygifs.BuildConfig;
 import com.example.andrey.giphygifs.R;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import jsonstructure.Gif;
 import jsonstructure.JsonResponse;
@@ -25,11 +27,11 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MainActivity extends AppCompatActivity {
     String query = "";
-    String apiKey = "dc6zaTOxFJmzC";
-    RecyclerView gifsList;
-    ArrayList<String> data;
-    DataAdapter adapter;
-    TextView textView;
+    private RecyclerView gifsList;
+    private List<String> data;
+    private DataAdapter adapter;
+    private TextView textView;
+    private Retrofit retrofit;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,25 +40,32 @@ public class MainActivity extends AppCompatActivity {
 
         textView = (EditText) findViewById(R.id.queryGifs);
         gifsList = (RecyclerView) findViewById(R.id.gifsList);
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
         gifsList.setLayoutManager(layoutManager);
         data = new ArrayList<>();
 
     }
 
-    public void onSearchClick(View view){
+    public Retrofit getRetrofit() {
+        if (retrofit == null) {
+            retrofit = new Retrofit.Builder()
+                    .baseUrl(BuildConfig.HOST)
+                    .addConverterFactory(GsonConverterFactory.create())
+                    .build();
+        }
+        return retrofit;
+    }
+
+    public void onSearchClick(View view) {
         data.clear();
-        query = textView.getText().toString().replace(' ','+');
+        query = textView.getText().toString().replace(' ', '+');
         loadJSON();
     }
 
     private void loadJSON() {
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://api.giphy.com/v1/gifs/")
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-        GiffyApi request = retrofit.create(GiffyApi.class);
-        Call<JsonResponse> call = request.getData(query, apiKey);
+
+        GiffyApi request = getRetrofit().create(GiffyApi.class);
+        Call<JsonResponse> call = request.getData(query, getResources().getString(R.string.GIFFY_API_KEY));
 
         call.enqueue(new Callback<JsonResponse>() {
             @Override

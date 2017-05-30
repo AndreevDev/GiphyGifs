@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">GiphyGifs</string>
+    <string name="api_key">@string/GIFFY_API_KEY</string>
 </resources>
