@@ -19,7 +19,6 @@ import java.util.List;
 
 public class DataAdapter extends RecyclerView.Adapter<DataAdapter.ViewHolder>{
     private final List<String> gifsURLs;
-    private ImageView gif;
     private Context mContext;
 
     public DataAdapter(ArrayList<String> gifsURLs) {
@@ -37,7 +36,7 @@ public class DataAdapter extends RecyclerView.Adapter<DataAdapter.ViewHolder>{
     public void onBindViewHolder(DataAdapter.ViewHolder viewHolder, int i) {
         Glide.with(mContext)
                 .load(gifsURLs.get(i))
-                .into(gif);
+                .into(viewHolder.gif);
     }
 
     @Override
@@ -46,6 +45,7 @@ public class DataAdapter extends RecyclerView.Adapter<DataAdapter.ViewHolder>{
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{
+        public ImageView gif;
         public ViewHolder(View view) {
             super(view);
             gif = (ImageView) view.findViewById(R.id.gifView);
