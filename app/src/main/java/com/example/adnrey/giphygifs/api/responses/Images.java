@@ -1,4 +1,4 @@
-package jsonstructure;
+package com.example.adnrey.giphygifs.api.responses;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
