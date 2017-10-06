@@ -1,4 +1,4 @@
-package ui.activity;
+package com.example.adnrey.giphygifs.ui.adapters;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -10,7 +10,6 @@ import android.widget.ImageView;
 import com.bumptech.glide.Glide;
 import com.example.andrey.giphygifs.R;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**

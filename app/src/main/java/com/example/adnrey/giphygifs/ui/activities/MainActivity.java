@@ -1,7 +1,7 @@
-package ui.activity;
+package com.example.adnrey.giphygifs.ui.activities;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -9,21 +9,19 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import ui.activity.giffy.GiffyApi;
-
+import com.example.adnrey.giphygifs.api.GiffyService;
+import com.example.adnrey.giphygifs.api.responses.Gif;
+import com.example.adnrey.giphygifs.api.responses.JsonResponse;
+import com.example.adnrey.giphygifs.ui.adapters.DataAdapter;
 import com.example.andrey.giphygifs.BuildConfig;
 import com.example.andrey.giphygifs.R;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import jsonstructure.Gif;
-import jsonstructure.JsonResponse;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MainActivity extends AppCompatActivity {
     String query = "";
@@ -31,7 +29,8 @@ public class MainActivity extends AppCompatActivity {
     private List<String> data;
     private DataAdapter adapter;
     private TextView textView;
-    private Retrofit retrofit;
+
+    private GiffyService giffy;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,17 +43,9 @@ public class MainActivity extends AppCompatActivity {
         gifsList.setLayoutManager(layoutManager);
         data = new ArrayList<>();
 
+        this.giffy = new GiffyService(BuildConfig.HOST);
     }
 
-    public Retrofit getRetrofit() {
-        if (retrofit == null) {
-            retrofit = new Retrofit.Builder()
-                    .baseUrl(BuildConfig.HOST)
-                    .addConverterFactory(GsonConverterFactory.create())
-                    .build();
-        }
-        return retrofit;
-    }
 
     public void onSearchClick(View view) {
         data.clear();
@@ -64,8 +55,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void loadJSON() {
 
-        GiffyApi request = getRetrofit().create(GiffyApi.class);
-        Call<JsonResponse> call = request.getData(query, getResources().getString(R.string.GIFFY_API_KEY));
+        Call<JsonResponse> call = this.giffy.getApi().getData(query, getResources().getString(R.string.GIFFY_API_KEY));
 
         call.enqueue(new Callback<JsonResponse>() {
             @Override

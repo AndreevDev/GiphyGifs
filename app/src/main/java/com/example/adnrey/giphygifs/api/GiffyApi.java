@@ -1,6 +1,6 @@
-package ui.activity.giffy;
+package com.example.adnrey.giphygifs.api;
 
-import jsonstructure.JsonResponse;
+import com.example.adnrey.giphygifs.api.responses.JsonResponse;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
